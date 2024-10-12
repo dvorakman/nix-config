@@ -3,10 +3,12 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-{
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+   [ # Include the results of the hardware scan.
+     ./hardware-configuration.nix
+     "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+     ./disk-config.nix
+   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
