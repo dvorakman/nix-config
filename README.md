@@ -6,7 +6,7 @@
 
 ```sh
 cd /tmp
-curl https://raw.githubusercontent.com/nix-community/disko/master/example/hybrid.nix -o /tmp/disk-config.nix
+curl https://raw.githubusercontent.com/dvorakman/dotfiles/refs/heads/main/luks-btrfs-subvolumes.nix -o /tmp/disk-config.nix
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko /tmp/disk-config.nix
 ```
 
