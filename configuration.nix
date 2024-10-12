@@ -24,7 +24,7 @@
   i18n.defaultLocale = "en_AU.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "dvorak";
+    keyMap = lib.mkForce "dvorak";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
