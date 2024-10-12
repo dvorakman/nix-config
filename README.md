@@ -17,6 +17,6 @@ mount | grep /mnt
 ```
 
 ```sh
-makepasswd
+nixos-generate-config --no-filesystems --root /mnt
+mv /tmp/disk-config.nix /mnt/etc/nixos
 ```
-to create your user account password then append it to the users.user.xxx, hashedPassword = "xxxx";
