@@ -13,4 +13,4 @@ sudo nix run 'github:nix-community/disko/latest#disko-install' --extra-experimen
 ```sh
 makepasswd
 ```
-to create your user account password then append it to the users.user.xxx, HashedPassword = "xxxx";
+to create your user account password then append it to the users.user.xxx, hashedPassword = "xxxx";
