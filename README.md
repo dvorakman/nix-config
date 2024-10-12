@@ -2,12 +2,18 @@
 
 ## Commands
 
-```sh
-nixos-generate-config --root /tmp/config --no-filesystems
-```
+### Disk Setup using Disko
 
 ```sh
-sudo nix run 'github:nix-community/disko/latest#disko-install' --extra-experimental-features nix-command --extra-experimental-features flakes -- --write-efi-boot-entries --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/nvme0n1
+cd /tmp
+curl https://raw.githubusercontent.com/nix-community/disko/master/example/hybrid.nix -o /tmp/disk-config.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko /tmp/disk-config.nix
+```
+
+Verify with:
+
+```sh
+mount | grep /mnt
 ```
 
 ```sh
