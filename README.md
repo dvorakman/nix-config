@@ -1,4 +1,4 @@
-# dotfiles (wip, while i struggle to install and comprehend nixos
+# dotfiles (wip, while i struggle to install and comprehend nixos)
 
 ## Commands
 
