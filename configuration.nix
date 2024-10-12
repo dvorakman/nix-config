@@ -80,7 +80,7 @@
   users.users.cardinal = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    hashedPassword = "$y$j9T$N46AdNaMGDvxiNlcCLb0V1$7OguLKhte.PC6IyUFecFatYpVXbFrEFHTBqYbQBCUy0";
+    hashedPassword = "$y$j9T$N46AdNaMGDvxiNlcCLb0V1$7OguLKhte.PC6IyUFecFatYpVXbFrEFHTBqYbQBCUy0"; # example lol
     packages = with pkgs; [
       firefox
       kitty
