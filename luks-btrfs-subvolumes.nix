@@ -41,6 +41,14 @@
                       mountpoint = "/nix";
                       mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
                     };
+                    "/var" = {
+                      mountpoint = "/var";
+                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
+                    };
+                    "/tmp" = {
+                      mountpoint = "/tmp";
+                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
+                    };
                   };
                 };
               };
