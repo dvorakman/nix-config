@@ -29,24 +29,16 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
-                    "/root" = {
+                    "@root" = {
                       mountpoint = "/";
                       mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
                     };
-                    "/home" = {
+                    "@persist" = {
                       mountpoint = "/home";
                       mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
                     };
-                    "/nix" = {
+                    "@nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
-                    };
-                    "/var" = {
-                      mountpoint = "/var";
-                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
-                    };
-                    "/tmp" = {
-                      mountpoint = "/tmp";
                       mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
                     };
                   };
