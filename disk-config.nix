@@ -26,22 +26,10 @@
                   allowDiscards = true;
                 };
                 content = {
-                  type = "btrfs";
-                  extraArgs = [ "-f" ];
-                  subvolumes = {
-                    "@root" = {
-                      mountpoint = "/";
-                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
-                    };
-                    "@persist" = {
-                      mountpoint = "/persist";
-                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
-                    };
-                    "@nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd" "noatime" "ssd" "space_cache=v2" "autodefrag" "discard=async" ];
-                    };
-                  };
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/";
+                  mountOptions = [ "noatime" "errors=remount-ro" "data=ordered" ];
                 };
               };
             };
