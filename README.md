@@ -16,7 +16,9 @@ git clone https://github.com/dvorakman/nix-config.git ~/.config/nix-config
 cd ~/.config/nix-config
 ```
 
-### Run disko to partition, format and mount the disks
+### Run disko to partition, format, and mount the disks
+
+Ensure that `disk-config.nix` is correctly created and available in your working directory:
 
 ```sh
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko disk-config.nix
@@ -26,7 +28,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 ```sh
 nixos-generate-config --no-filesystems --root /mnt
-mv /tmp/disk-config.nix /mnt/etc/nixos
+mv disk-config.nix /mnt/etc/nixos
 ```
 
 ### Apply the configuration
