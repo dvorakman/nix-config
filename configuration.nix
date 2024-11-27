@@ -4,6 +4,8 @@
   imports =
     [
       ./hardware-configuration.nix  # Hardware-specific settings
+      "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+      ./disk-config.nix
     ];
 
   # Bootloader configuration
