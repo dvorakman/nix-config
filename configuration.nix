@@ -18,7 +18,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vim git curl wget
+    vim git curl wget nano alacritty
   ];
 
   services.xserver.enable = true;
