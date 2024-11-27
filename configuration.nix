@@ -4,7 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix  # Hardware-specific settings
-      "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+      "${builtins.fetchTarball { url = "https://github.com/nix-community/disko/archive/master.tar.gz"; sha256 = "sha256:1jdn69654qw9g0pg2hmqrr5ihp5szg6wfbhp2z7rpp5rdqikd1gv"; }/module.nix"
       ./disk-config.nix
     ];
 
