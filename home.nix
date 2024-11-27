@@ -1,32 +1,27 @@
 { config, pkgs, ... }:
 
 {
-  home.username = "myuser";
-  home.homeDirectory = "/home/myuser";
+  # Enable Home Manager to manage the user's environment
+  home.username = "cardinal";  # The username
 
-  programs.zsh.enable = true;
-  programs.git.enable = true;
+  # Set up environment variables
+  home.sessionVariables = {
+    EDITOR = "nano";  # Default editor
+  };
 
-  programs.alacritty.enable = true;
-
+  # User-specific packages to install
   home.packages = with pkgs; [
-    nano
-    firefox
+    git
     zsh
-    dmenu
   ];
 
-  xdg.configFile."hypr/hyprland.conf".text = ''
-    monitor=,1920x1080@60,0x0,1
-    input:kb_layout=dvorak
-    exec-once=alacritty
-  '';
-
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -alF";
-      gs = "git status";
-    };
+  # Configure the shell (e.g., zsh)
+  programs.zsh.enable = true;
+  programs.zsh.shellAliases = {
+    ll = "ls -l";
+    gs = "git status";
   };
+
+  # Enable Home Manager's programs (like Firefox settings)
+  programs.firefox.enable = true;
 }

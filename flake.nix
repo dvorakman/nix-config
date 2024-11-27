@@ -1,30 +1,31 @@
 {
-  description = "dvorakman's nix-config";
+  description = "My NixOS Dotfiles with Flakes";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    home-manager.url = "github:nix-community/home-manager";
+    # Optionally add more inputs like a custom NixOS flake
   };
 
-  outputs = { self, nixpkgs, home-manager }: {
-    nixosConfigurations = {
-      idios = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+  outputs = { self, nixpkgs, home-manager, ... }:
+    let
+      system = "x86_64-linux";  # Adjust for your architecture
+    in
+    {
+      nixosConfigurations.mySystem = nixpkgs.lib.nixosSystem {
+        system = system;
         modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
+          ./configuration.nix  # Include your main system configuration
+          ./hardware-configuration.nix  # Include hardware config
+        ];
+        specialArgs = { inherit system; };
+      };
+
+      homeConfigurations.cardinal = home-manager.lib.homeManagerConfiguration {
+        system = system;
+        modules = [
+          ./home.nix  # Include your user-specific configuration here
         ];
       };
     };
-
-    homeConfigurations = {
-      myuser = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          ./home.nix
-        ];
-      };
-    };
-  };
 }
