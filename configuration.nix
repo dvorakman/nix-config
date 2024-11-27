@@ -4,7 +4,6 @@
   imports =
     [
       ./hardware-configuration.nix  # Hardware-specific settings
-      ./home.nix                    # User-specific Home Manager configuration
     ];
 
   # Bootloader configuration
@@ -12,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking settings
-  networking.hostName = "nixos";  # Define your hostname
+  networking.hostName = "idios";  # Define your hostname
   networking.networkmanager.enable = true;  # Enable NetworkManager
 
   # Time zone and locale settings
