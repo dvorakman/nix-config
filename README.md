@@ -9,19 +9,17 @@ After installing NixOS and rebooting into your new system, open a terminal and r
 
 ```sh
 # Install Git if it's not already installed
-nix-env -iA nixpkgs.git
+nix-env -iA nixos.git
 
 # Clone your dotfiles repository
-git clone https://github.com/dvorakman/nix-config.git /etc/nixos
-cd /etc/nixos
+git clone https://github.com/dvorakman/nix-config.git ~/.config/nix-config
+cd ~/.config/nix-config
 ```
 
 ### Run disko to partition, format and mount the disks
 
 ```sh
-cd /tmp
-curl https://raw.githubusercontent.com/dvorakman/nix-config/refs/heads/main/disk-config.nix -o /tmp/disk-config.nix
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko /tmp/disk-config.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko disk-config.nix
 ```
 
 ### Complete the NixOS installation
