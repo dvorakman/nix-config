@@ -63,6 +63,7 @@
       kdePackages.kate
       git
     ];
+    initialPassword = "aoeu";
   };
 
   # Enable Firefox
