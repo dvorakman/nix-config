@@ -20,6 +20,10 @@
         disko.nixosModules.disko
       ];
     };
-    checks.${system}.nixosConfiguration = self.nixosConfigurations.mySystem.config.system.build.toplevel;
+
+    checks = {
+      "${system}" = {
+        nixosConfiguration = self.nixosConfigurations.mySystem.config.system.build.toplevel;
+      };
+    };
   }
-}
