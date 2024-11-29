@@ -62,6 +62,8 @@
     packages = with pkgs; [
       kdePackages.kate
       git
+      vscode
+      github-desktop
     ];
     initialPassword = "aoeu";
   };
