@@ -1,59 +1,99 @@
-### Install NixOS
+# NixOS Configuration
 
-1. Boot from the NixOS installation media.
-2. Follow the official [NixOS installation guide](https://nixos.org/manual/nixos/stable/#sec-installation) to install NixOS on your system.
+## Overview
 
-### Open the terminal in root
+This repository contains my NixOS configuration files, managed with flakes for a fully reproducible system setup. It includes disk partitioning, system configuration, and optional Home Manager integration. This guide provides step-by-step instructions for installing NixOS using these configurations, including an automated installation script for convenience.
 
-```sh
-sudo su
+## Prerequisites
+
+Before starting, ensure you have:
+- A basic understanding of NixOS installation.
+- Access to the NixOS installation media (ISO).
+- A machine ready for NixOS installation with the desired partitioning scheme.
+- Internet access to download dependencies during installation.
+
+---
+
+## Installation Steps
+
+### Step 1: Boot into the NixOS Live Environment
+1. Boot your system using the NixOS installation media.
+2. Open a terminal and switch to the root user:
+   ```bash
+   sudo su
+   ```
+
+---
+
+### Step 2: Partition, Format, and Mount Disks
+1. Ensure that `disk-config.nix` is correctly created and available. Use `disko` to set up your partitions:
+   ```bash
+   cd /tmp
+   curl -o disk-config.nix https://raw.githubusercontent.com/dvorakman/nix-config/refs/heads/main/disk-config.nix
+   nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko disk-config.nix
+   ```
+2. Verify that your root filesystem is mounted at `/mnt`.
+
+---
+
+### Step 3: Automated Installation with `install.sh`
+1. Download the installation script:
+   ```bash
+   curl -o install.sh https://raw.githubusercontent.com/dvorakman/nix-config/main/install.sh
+   chmod +x install.sh
+   ```
+
+2. Run the installation script:
+   ```bash
+   ./install.sh --repo-url https://github.com/dvorakman/nix-config.git --flake-ref mySystem
+   ```
+
+   - The script will:
+     - Clone the repository into a temporary directory.
+     - Install NixOS using the specified flake configuration.
+     - Backup any existing `/mnt/etc/nixos` configuration (if present).
+     - Log the entire process to `/tmp/nixos-install.log`.
+
+3. Once the installation is complete, reboot into your new system:
+   ```bash
+   reboot
+   ```
+
+---
+
+## Post-Installation Workflow
+
+### Move the Configuration Repository
+(Optional) Move the repository to your home directory for easier access:
+```bash
+mv /mnt/tmp/nix-dotfiles ~/nix-dotfiles
 ```
 
-### Run disko to partition, format, and mount the disks
-
-Ensure that `disk-config.nix` is correctly created and available in your working directory:
-
-```sh
-cd /tmp
-curl -o disk-config.nix https://raw.githubusercontent.com/dvorakman/nix-config/refs/heads/main/disk-config.nix
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko disk-config.nix
+### Update and Apply System Configurations
+Use the flake to manage and rebuild your system:
+```bash
+sudo nixos-rebuild switch --flake ~/nix-dotfiles#mySystem
 ```
 
-### Complete the NixOS installation
+---
 
-```sh
-# nixos-generate-config --no-filesystems --root /mnt
-# cd /mnt/etc/nixos
-# i'm not sure whether to sym link the dotfiles or install them directly to the /etc/nixos directory, will fix soon.
-mkdir -p /mnt/etc/nixos
-cd /mnt/etc/nixos
-```
+## Customising Your Configuration
 
-### Clone the repository
+Feel free to fork this repository and adapt it to your needs. Key areas to customize include:
+- **`flake.nix`**: Define your own system configurations or modules.
+- **`disk-config.nix`**: Adjust partitioning and formatting settings.
+- **Home Manager Configurations**: Add or modify user-specific settings.
 
-```sh
-# Install Git if it's not already installed
-nix-env -iA nixos.git
+---
 
-# Clone your dotfiles repository (provided you're in the /mnt/etc/nixos directory)
-git clone https://github.com/dvorakman/nix-config.git .
-```
+## Troubleshooting
 
-### Apply the configuration
+### Disk Partitioning
+- If `disko` fails, ensure your disk identifiers (e.g., `/dev/sdX`) match those defined in `disk-config.nix`.
 
-```sh
-# Apply the NixOS configuration
-nixos-install --flake .#mySystem
+### Installation Script Errors
+- If the `install.sh` script reports "no such file or directory," check if the file was downloaded correctly.
+- If `nixos-install` fails, review the logs saved in `/tmp/nixos-install.log` for details.
 
-# Reboot into your new system
-reboot
-```
-
-### Set up Home Manager
-
-After rebooting, set up Home Manager for the user:
-
-```sh
-# Apply the Home Manager configuration
-home-manager switch --flake .#cardinal
-```
+### Network Issues
+- Ensure your system has internet access during installation. Use `ping nixos.org` to test connectivity.
