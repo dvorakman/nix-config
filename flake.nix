@@ -7,21 +7,19 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, home-manager, disko, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-    in
-    {
-      nixosConfigurations.mySystem = nixpkgs.lib.nixosSystem {
-        system = system;
-        modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
-          disko.nixosModules.disko
-        ];
-      };
-      checks = {
-        nixosConfiguration = self.nixosConfigurations.mySystem.config.system.build.toplevel;
-      };
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in
+  {
+    nixosConfigurations.mySystem = nixpkgs.lib.nixosSystem {
+      system = system;
+      modules = [
+        ./configuration.nix
+        ./hardware-configuration.nix
+        disko.nixosModules.disko
+      ];
     };
+    checks.${system}.nixosConfiguration = self.nixosConfigurations.mySystem.config.system.build.toplevel;
+  }
 }
