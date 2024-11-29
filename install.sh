@@ -3,15 +3,15 @@
 set -euo pipefail
 
 # Default Variables
-REPO_URL="https://github.com/your-username/nix-dotfiles.git"
+REPO_URL="https://github.com/dvorakman/nix-config.git"
 FLAKE_REF="my-machine"  # Replace with your system's configuration name
-TMP_DIR="/mnt/tmp/nix-dotfiles"
+TMP_DIR="/mnt/tmp/nix-config"
 LOG_FILE="/tmp/nixos-install.log"
 
 # Print usage information
 usage() {
     echo "Usage: $0 [--repo-url URL] [--flake-ref NAME] [--log-file PATH]"
-    echo "  --repo-url   URL of the dotfiles repository (default: $REPO_URL)"
+    echo "  --repo-url   URL of the config repository (default: $REPO_URL)"
     echo "  --flake-ref  Name of the configuration in the flake (default: $FLAKE_REF)"
     echo "  --log-file   Path to save installation logs (default: $LOG_FILE)"
     exit 1
